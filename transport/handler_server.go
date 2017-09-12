@@ -291,9 +291,9 @@ func (ht *serverHandlerTransport) HandleStreams(startStream func(*Stream), trace
 	var ctx context.Context
 	var cancel context.CancelFunc
 	if ht.timeoutSet {
-		ctx, cancel = context.WithTimeout(context.Background(), ht.timeout)
+		ctx, cancel = context.WithTimeout(ht.req.Context(), ht.timeout)
 	} else {
-		ctx, cancel = context.WithCancel(context.Background())
+		ctx, cancel = context.WithCancel(ht.req.Context())
 	}
 
 	// requestOver is closed when either the request's context is done
